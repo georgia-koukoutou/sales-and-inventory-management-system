@@ -6,7 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,19 +20,19 @@ import lombok.NoArgsConstructor;
 public class Customer {
 
 	@Id
-	@Column(name="id")
+	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	
-	@NotNull
-	@Column(name="name", nullable = false)
+
+	@NotBlank
+	@Column(name = "name", nullable = false)
 	private String name;
-	
-	@NotNull
-	@Column(name="phone_number", nullable = false)
+
+	@NotBlank
+	@Column(name = "phone_number", nullable = false)
 	private String phoneNumber;
-	
-	@NotNull
-	@Column(name="address", nullable = false)
+
+	@NotBlank
+	@Column(name = "address", nullable = false)
 	private String address;
 }
