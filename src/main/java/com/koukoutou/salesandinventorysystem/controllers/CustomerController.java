@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -19,9 +20,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.koukoutou.salesandinventorysystem.models.Customer;
 import com.koukoutou.salesandinventorysystem.repositories.CustomerRepository;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 @Controller
 public class CustomerController {
 
@@ -61,10 +59,10 @@ public class CustomerController {
 	}
 
 	@PostMapping(value = { "/customer" })
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public String createUpdateCustomer(@Valid Customer customer, Errors errors, Model model) {
 
 		if (errors != null && errors.getErrorCount() > 0) {
-			log.info("Got errors");
 			return "fragments/customer_form";
 		} else {
 			customerRepository.save(customer);
@@ -73,6 +71,7 @@ public class CustomerController {
 	}
 
 	@PostMapping("/customers/delete")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public String deleteCustomer(@RequestParam("id") Long id) {
 
 		customerRepository.deleteById(id);

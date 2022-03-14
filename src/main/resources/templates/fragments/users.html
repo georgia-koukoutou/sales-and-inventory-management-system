@@ -2,44 +2,46 @@
 <html layout:decorate="~{layout}">
 
 <head>
-<title>Customers</title>
+<title>Users</title>
 </head>
 
 <body>
     <div layout:fragment="content">
 
-        <a sec:authorize="hasRole('ADMIN')" th:href="@{/customer}" class="btn btn-dark mb-3"><i
-            class="fas fa-plus"></i> Add a new customer</a>
+        <a th:href="@{/user}" class="btn btn-dark mb-3"><i
+            class="fas fa-plus"></i> Create new user</a>
         <table class="table table-bordered table-striped">
             <thead>
                 <tr>
-                    <td class="fw-bold">Name</td>
-                    <td class="fw-bold">Address</td>
-                    <td class="fw-bold">Phone Number</td>
+                    <td class="fw-bold">Username</td>
+                    <td class="fw-bold">First Name</td>
+                    <td class="fw-bold">Last Name</td>
+                    <td class="fw-bold">Email</td>
                     <td class="fw-bold">Actions</td>
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="customer : ${customer_page.content}">
-                    <td th:text="${customer.name}"></td>
-                    <td th:text="${customer.address}"></td>
-                    <td th:text="${customer.phoneNumber}"></td>
-                    <td><a th:href="@{/customer/{id}(id = ${customer.id})}"
+                <tr th:each="user : ${user_page.content}">
+                    <td th:text="${user.username}"></td>
+                    <td th:text="${user.firstName}"></td>
+                    <td th:text="${user.lastName}"></td>
+                    <td th:text="${user.email}"></td>
+                    <td><a th:href="@{/user/{id}(id = ${user.id})}"
                         class="btn btn-primary btn-sm">Edit</a>
-                        <button type="button" th:attr="data-id=${customer.id}"
+                        <button type="button" th:attr="data-id=${user.id}"
                             class="btn btn-danger btn-sm" data-bs-toggle="modal"
                             data-bs-target="#deleteConfirmationModal">Delete</button></td>
                 </tr>
             </tbody>
         </table>
-        <nav th:if="${customer_page.totalPages > 1}"
+        <nav th:if="${user_page.totalPages > 1}"
             class="d-flex justify-content-center">
             <ul class="pagination">
                 <li class="page-item"
-                    th:each="i: ${#numbers.sequence(1, customer_page.totalPages)}"
-                    th:classappend="${i - 1 == customer_page.number} ? active"><a
+                    th:each="i: ${#numbers.sequence(1, user_page.totalPages)}"
+                    th:classappend="${i - 1 == user_page.number} ? active"><a
                     class="page-link"
-                    th:href="@{/customers(size=${customer_page.size}, page=${i})}"
+                    th:href="@{/users(size=${user_page.size}, page=${i})}"
                     th:text=${i}></a></li>
             </ul>
         </nav>
@@ -47,16 +49,16 @@
         <div class="modal fade" id="deleteConfirmationModal" tabindex="-1"
             aria-labelledby="deleteConfirmationModal" aria-hidden="true">
             <div class="modal-dialog">
-                <form th:action="@{/customers/delete}" method="post">
+                <form th:action="@{/users/delete}" method="post">
                     <input type="hidden" name="id" value="">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title">Delete Item</h5>
+                            <h5 class="modal-title">Delete User</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                 aria-label="Close"></button>
                         </div>
                         <div class="modal-body">Are you sure you want to delete this
-                            item?</div>
+                            user?</div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary btn-sm"
                                 data-bs-dismiss="modal">Close</button>

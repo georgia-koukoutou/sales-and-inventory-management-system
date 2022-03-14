@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -75,7 +76,6 @@ public class OrderController {
 		model.addAttribute("products", products);
 
 		if (id != null) {
-			log.info("I do view order");
 			Optional<Order> order = orderRepository.findById(id);
 			if (order.isPresent()) {
 				model.addAttribute("order", order.get());
@@ -92,6 +92,7 @@ public class OrderController {
 
 	@Transactional
 	@PostMapping(value = { "/order" })
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public String createUpdateOrder(@Valid Order order, HttpServletRequest request, Errors errors, Model model) {
 
 		if (errors != null && errors.getErrorCount() > 0) {
@@ -137,7 +138,6 @@ public class OrderController {
 			order.setTotalAmount(Math.round(totalAmount * 100.0) / 100.0);
 
 			order = orderRepository.save(order);
-			log.info("saved {}", order);
 			// delete existing order details
 			orderDetailsRepository.deleteAllByOrderId(order.getId());
 			// save new order details
@@ -151,6 +151,7 @@ public class OrderController {
 
 	@Transactional
 	@PostMapping("/orders/delete")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public String deleteOrder(@RequestParam("id") Long id) {
 
 		List<OrderDetails> existingOrderDetailsList = orderDetailsRepository.findAllByOrderId(id);
@@ -187,7 +188,6 @@ public class OrderController {
 
 		productQuantities.entrySet().forEach(entry -> {
 
-			log.info("Update product {} quantity by {}", entry.getKey(), entry.getValue());
 			productRepository.updateQuantity(entry.getKey(), entry.getValue());
 		});
 
