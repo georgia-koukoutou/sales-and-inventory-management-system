@@ -4,7 +4,13 @@ spring:
         username: root
         password: 123456
     jpa:
+# If you want to use data.sql to populate a schema created by Hibernate
+        defer-datasource-initialization: true
+        generate-ddl: true
         hibernate:
             ddl-auto: update
         database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
         show-sql: true
+    sql:
+        init:
+            mode: always

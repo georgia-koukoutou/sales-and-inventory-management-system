@@ -1,0 +1,1 @@
+INSERT IGNORE INTO `users` (`id`, `password`, `username`, `role`, `email`, `first_name`, `last_name`) VALUES (1, '$2a$10$LGIWTu6DpPZ.Egax.qiQOecBe5aqQHANOhN2AYOZGX5NCOEGbyHTG', 'admin', 0, 'admin@test.gr', 'Admin', 'Admin');
