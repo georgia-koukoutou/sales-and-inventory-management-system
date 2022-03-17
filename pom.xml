@@ -9,9 +9,8 @@
     </parent>
     <groupId>com.koukoutou</groupId>
     <artifactId>salesandinventorysystem</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>SalesAndInventorySystem</name>
-    <description>Demo project for Spring Boot</description>
     <properties>
         <java.version>1.8</java.version>
     </properties>
@@ -68,6 +67,7 @@
     </dependencies>
 
     <build>
+        <finalName>salesandinventorysystem</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

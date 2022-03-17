@@ -12,27 +12,27 @@ import com.koukoutou.salesandinventorysystem.repositories.ProductRepository;
 @Controller
 public class AppController {
 
-	@Autowired
-	private ProductRepository productRepository;
+    @Autowired
+    private ProductRepository productRepository;
 
-	@Autowired
-	private CustomerRepository customerRepository;
+    @Autowired
+    private CustomerRepository customerRepository;
 
-	@Autowired
-	private OrderRepository orderRepository;
+    @Autowired
+    private OrderRepository orderRepository;
 
-	@GetMapping("/")
-	public String home(Model model) {
+    @GetMapping("/")
+    public String home(Model model) {
 
-		long productCount = productRepository.count();
-		long customerCount = customerRepository.count();
-		long orderCount = orderRepository.count();
+        long productCount = productRepository.count();
+        long customerCount = customerRepository.count();
+        long orderCount = orderRepository.count();
 
-		model.addAttribute("product_count", productCount);
-		model.addAttribute("customer_count", customerCount);
-		model.addAttribute("order_count", orderCount);
+        model.addAttribute("product_count", productCount);
+        model.addAttribute("customer_count", customerCount);
+        model.addAttribute("order_count", orderCount);
 
-		return "fragments/home";
-	}
+        return "fragments/home";
+    }
 
 }

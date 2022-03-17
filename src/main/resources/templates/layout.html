@@ -33,23 +33,23 @@
 				class="col-md-2 d-md-block bg-light sidebar collapse">
 				<div class="position-sticky pt-3">
 					<ul class="nav flex-column">
-						<li class="nav-item"><a class="nav-link active"
+						<li><a th:classappend="${#httpServletRequest.getRequestURI() == '/' ? 'active':''}" class="nav-link"
 							aria-current="page" th:href="@{/}"> <i class="fas fa-home"></i>
 								Home
 						</a></li>
-						<li class="nav-item"><a class="nav-link" th:href="@{/orders}">
+						<li><a th:classappend="${#httpServletRequest.getRequestURI().startsWith('/order') ? 'active':''}" class="nav-link" th:href="@{/orders}">
 								<i class="fas fa-chart-line"></i> Orders
 						</a></li>
-						<li class="nav-item"><a class="nav-link"
+						<li><a th:classappend="${#httpServletRequest.getRequestURI().startsWith('/product') ? 'active':''}" class="nav-link"
 							th:href="@{/products}"> <i class="fas fa-box-open"></i>
 								Products
 						</a></li>
-						<li class="nav-item"><a class="nav-link"
+						<li><a th:classappend="${#httpServletRequest.getRequestURI().startsWith('/customer') ? 'active':''}" class="nav-link"
 							th:href="@{/customers}"> <i class="fas fa-address-book"></i>
 								Customers
 						</a></li>
 						<div sec:authorize="hasRole('ADMIN')">
-							<li class="nav-item"><a class="nav-link" th:href="@{/users}">
+							<li><a th:classappend="${#httpServletRequest.getRequestURI().startsWith('/user') ? 'active':''}" class="nav-link" th:href="@{/users}">
 									<i class="fas fa-user"></i> Users
 							</a></li>
 						</div>
@@ -61,7 +61,7 @@
 								aria-expanded="false">Account</button>
 							<div class="collapse" id="account-collapse">
 								<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-									<li class="nav-item"><a class="nav-link link-dark rounded"
+									<li><a th:classappend="${#httpServletRequest.getRequestURI().startsWith('/account') ? 'active':''}" class="nav-link link-dark rounded"
 										th:href="@{/account}"> Profile </a></li>
 									<li class="nav-item"><a class="nav-link link-dark rounded"
 										th:href="@{/logout}"> Sign out </a></li>
